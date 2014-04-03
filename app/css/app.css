@@ -1,0 +1,13 @@
+body {
+    font-size: 13px !important; /* the first one :( */
+    margin-top: 80px !important;
+}
+
+div.matters {
+    max-height: 500px;
+    overflow: scroll;
+}
+
+.tab-content {
+    padding: 15px;
+}

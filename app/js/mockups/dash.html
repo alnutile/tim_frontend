@@ -1,0 +1,91 @@
+<div class="container">
+    <span ng-include="nav.url" class="slide-animate"></span>
+    <div class="row clearfix">
+        <div class="col-md-8 column">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Testing</a> <span class="divider">/</span>
+                </li>
+                <li class="active">
+                    Dashboard
+                </li>
+            </ul>
+            <h3>
+                Behat Testing
+            </h3>
+            <div class="row clearfix">
+                <div class="col-md-6 column">
+
+                    <div class="panel panel-default">
+                        <div ng-include="report_chart.url"></div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div ng-include="report_numbers.url"></div>
+                    </div>
+
+                </div>
+                <div class="col-md-6 column">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Find Site <small>by Tag or Name</small>
+                            </h3>
+                        </div>
+                            <br>
+                            <div class="form-group col-md-12">
+                                <input class="form-control" placeholder="Search" ng-model="query">
+                            </div>
+                            <hr>
+                                <table ng-table="tableParams" class="table table-bordered table-hover">
+                                    <tr ng-repeat="site in $data | filter:query" >
+                                        <td data-title="'Name'" sortable="'title'">{{ site.title }}</td>
+                                        <td data-title="'Default Tag'" sortable="'default_tag'">{{ site.default_tag }}</td>
+                                        <td data-title="'Site ID'" sortable="'nid'"><a id="site-{{ site.nid }}" href="#/sites/{{ site.nid }}">view</a></td>
+                                    </tr>
+                                </table>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Help &amp; Example Tests
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            Links to help below
+                        </div>
+                        <div class="panel-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 column">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Actions
+                    </h3>
+                </div>
+                <div class="panel-body">
+                <br>
+                    <div>
+                        <button type="button" class="btn btn-small btn-info">
+                            <i class="glyphicon glyphicon-book"></i>
+                            Batch Tests
+                        </button>
+                    </div>
+                    <br>
+                    <div>
+                        <a class="btn btn-success" ng-href="#/reports" id="reporting">
+                            <i class="glyphicon glyphicon-record"></i>
+                            Reporting
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

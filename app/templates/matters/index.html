@@ -1,0 +1,75 @@
+<div class="container">
+    <ng-include src="nav.url"></ng-include>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="row clearfix">
+                <!-- start left side column with features -->
+                <div class="col-md-2 column">
+                    <div class="list-group">
+                        <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Actions</h4>
+                        <a href="#/dashboard/matters" class="list-group-item active"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Matters</a>
+                        <div class="list-group-item">
+                            <i class="glyphicon glyphicon-user"></i>&nbsp;People
+                        </div>
+                        <div class="list-group-item">
+                            <i class="glyphicon glyphicon-th-list"></i>&nbsp;Reports
+                        </div>
+                        <div class="list-group-item">
+                            <i class="glyphicon glyphicon-calendar"></i>&nbsp;Calendar
+                        </div>
+                        <div class="list-group-item">
+                            <span class="badge">14</span>
+                            <i class="glyphicon glyphicon-tasks"></i>>&nbsp;Task
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end left side column with features -->
+                <!-- start middle column with list of names or cases -->
+                <div class="col-md-3 column">
+                    <h4 class="list-group-item"><i class="glyphicon glyphicon-align-justify"></i>&nbsp; {{ action }}</h4>
+                    <input type="text" class="input-sm form-control" placeholder="search matters" ng-model="query">
+                    <div class="matters">
+                        <ol class="list-group">
+                            <li class="list-group-item" ng-repeat="matter in matters | filter:query">
+                                <a href="" ng-click="activeMatter(matter)">{{ matter.name }} <small>[{{ matter.case_id}}]</small></a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- end middle column with list of names or cases -->
+
+                <!-- start right column with forms and actions -->
+                <div class="col-md-7 column">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"> <strong>Matter Name: {{ matter_viewing.name }} </strong> [{{ matter_viewing.case_id}}] &nbsp;&nbsp;<a class="pull-right" ng-href="/dashboard/matters/{{ matter_viewing.id}}/edit"><i class="glyphicon glyphicon-pencil"></i></a></div>
+                        <div class="panel-body">
+                            <h5>Date:</h5> {{ matter_viewing.created | date:'medium' }}
+                            <h5>Location:</h5>
+                            <address>
+                                {{matter_viewing.location.name}}<br>
+                                {{matter_viewing.location.street}}<br>
+                                {{matter_viewing.location.city}}<br>
+                                {{matter_viewing.location.state}}, {{ matter_viewing.location.zip }}
+                            </address>
+                        </div>
+                        <div class="panel-body">
+                            <tabset>
+                                <tab heading="Details">{{ matter_viewing.description }}</tab>
+                                <tab heading="People">Coming Soon...</tab>
+                                <tab heading="Issues">Coming Soon.......</tab>
+                                <tab heading="Tasks">Coming Soon...........</tab>
+                                <tab heading="Notes">Coming Soon.............</tab>
+                            </tabset>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end right column with forms and actions -->
+
+            </div>
+        </div>
+    </div>
+</div>

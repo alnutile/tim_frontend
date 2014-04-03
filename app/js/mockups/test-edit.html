@@ -1,0 +1,76 @@
+<div class="container test-ui ng-cloak">
+    <span ng-include="nav.url" class="slide-animate"></span>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div ng-include="alerts_partial.url"></div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div ng-include="bc.url"></div>
+            <h3>
+                {{ test.name }}
+            </h3>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+            <accordion close-others="true">
+                <accordion-group heading="Test Details" is-open="true" ng-click="showHideBlocks('testDetailsBlock')">
+                    <p>Add tags, Backgrounds etc. [help]</p>
+                </accordion-group>
+                <accordion-group class="scenarios" heading="Scenarios and steps" ng-click="showHideBlocks('testStepsBlock')">
+                    <p>Add steps to your test. Search as needed [help]</p>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a ng-href="" type="button" ng-click="showHideGroup('starting')">Starting Points</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a ng-href="" type="button" ng-click="showHideGroup('general')">General interactions</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a ng-href="" ng-click="showHideGroup('elements')">Form fields & elements</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a ng-href="" ng-click="showHideGroup('dom')">CSS and DOM</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a ng-href="" ng-click="showHideGroup('modals')">Navigation Windows iFrames Modals</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a ng-href="" ng-click="showHideGroup('custom')">Custom</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a ng-href="" ng-click="showHideGroup('features')">Low level features</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a ng-href="" ng-click="showHideGroup('all')">Show all</a>
+                        </li>
+                    </ul>
+                </accordion-group>
+                <accordion-group heading="Tokens" ng-click="showHideBlocks('testTokensBlock')">
+                    <p>Add tokens so one test can work for many.</p>
+                </accordion-group>
+                <accordion-group ng-click="showHideBlocks('testResultsBlock')">
+                    <accordion-heading>
+                        Results
+                    </accordion-heading>
+                    <p>Search and View Results</p>
+                </accordion-group>
+                <accordion-group ng-click="showHideBlocks('testRunBlock')">
+                    <accordion-heading>
+                        Run a test
+                    </accordion-heading>
+                    <p>Run your test [help]</p>
+                </accordion-group>
+            </accordion>
+        </div>
+        <div class="col-md-4 column">
+            <div ng-include="form.url"></div>
+        </div>
+
+        <div class="col-md-6 column">
+            <div ng-include="ace.url"></div>
+        </div>
+    </div>
+</div>
