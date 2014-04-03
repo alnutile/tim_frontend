@@ -1,5 +1,3 @@
-## Behat Angular Front end
+## Turb Tim Front End
 
-Demo can be seen at http://angular.behateditor.io
-
-Using the e2eMock from Angular (see app_dev.js) 
+demo at http://turbotim.stagingarea.us
