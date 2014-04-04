@@ -8,7 +8,7 @@
                 <div class="col-md-2 column">
                     <div class="list-group">
                         <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Actions</h4>
-                        <a href="#/dashboard/matters" class="list-group-item active"><i class="glyphicon glyphicon-pencil"></i>&nbsp;Matters</a>
+                        <a href="#/dashboard/matters" class="list-group-item active"><i class="glyphicon glyphicon-th"></i>&nbsp;Matters</a>
                         <div class="list-group-item">
                             <i class="glyphicon glyphicon-user"></i>&nbsp;People
                         </div>
@@ -56,32 +56,113 @@
                             </address>
                         </div>
                         <div class="panel-body">
-                            <tabset>
-                                <tab heading="Details">{{ matter_viewing.description }}</tab>
-                                <tab heading="People">
-                                    <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Witnesses</h4>
-                                    <ol class="list-group">
-                                        <li class="list-group-item" ng-repeat="witness in matter_viewing.people.witness">
-                                            <a href="" ng-click="personClicked(witness)">{{ witness.firstname }} {{ witness.lastname }}</a>
-                                        </li>
-                                    </ol>
-                                    <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Other</h4>
-                                    <ol class="list-group">
-                                        <li class="list-group-item" ng-repeat="victom in matter_viewing.people.victom">
-                                            <a href="" ng-click="personClicked(victom)">{{ victom.firstname }} {{ victom.lastname }}</a>
-                                        </li>
-                                    </ol>
-                                </tab>
-                                <tab heading="Issues">Coming Soon.......</tab>
-                                <tab heading="Tasks">Coming Soon...........</tab>
-                                <tab heading="Notes">Coming Soon.............</tab>
-                            </tabset>
+                                <tabset>
+                                    <tab heading="Details" ><div data-ng-bind="matter_viewing.description"></div></tab>
+                                    <tab heading="People">
+                                        <div class="col-md-6 column">
+                                            <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Witnesses</h4>
+                                            <ol class="list-group">
+                                                <li class="list-group-item" ng-repeat="witness in matter_viewing.people.witness">
+                                                    <a href="" ng-click="activePerson(witness)">{{ witness.firstname }} {{ witness.lastname }}</a>
+                                                </li>
+                                            </ol>
+                                            <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Other</h4>
+                                            <ol class="list-group">
+                                                <li class="list-group-item" ng-repeat="victom in matter_viewing.people.victom">
+                                                    <a href="" ng-click="activePerson(victom)">{{ victom.firstname }} {{ victom.lastname }}</a>
+                                                </li>
+                                            </ol>
+                                        </div>
+                                        <div class="col-md-6 column">
+                                            <h5>Person</h5>
+                                            <div class="well">
+                                                Name: {{ active_person.firstname }} {{ active_person.lastname }}<br>
+                                                Phone: {{ active_person.phone }}<br>
+                                                Email: <a href="mailto:{{ active_person.email }}?Subject=Matter:%20{{matter_viewing.case_id}}%20">{{ active_person.email }}</a><br>
+                                                <hr>
+                                                <button type="button" class="btn btn-success" ng-disabled="active_person_is_active" ng-click="editPerson(active_person)">edit</button>
+                                                <button type="button" class="btn btn-primary" ng-click="addPerson()">Add</button>
+                                            </div>
+                                            <!-- start edit a person -->
+                                            <div class="animate-switch-container well"
+                                                 ng-switch ng-if="edit_person.id">
+                                                <h5>Edit Person</h5>
+                                                <div class="animate-switch">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label>First Name</label>
+                                                            <input class="form-control" type="text" data-ng-model="edit_person.firstname">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Last Name</label>
+                                                            <input class="form-control"  type="text" data-ng-model="edit_person.lastname">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Phone</label>
+                                                            <input class="form-control"  type="text" data-ng-model="edit_person.phone">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input class="form-control"  type="text" data-ng-model="edit_person.email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Description</label>
+                                                            <input class="form-control"  type="text" data-ng-model="edit_person.description">
+                                                        </div>
+                                                        <button type="button" class="btn btn-danger" ng-disabled="active_person_is_active" ng-click="updatePerson(active_person)">Update</button>
+                                                    </form>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                            <!-- end edit a person -->
 
+                                            <!-- start add a person -->
+                                            <div class="animate-switch-container well"
+                                                 ng-switch ng-if="add_person">
+                                                <h5>Add Person</h5>
+                                                <div class="animate-switch">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label>First Name</label>
+                                                            <input class="form-control" type="text" data-ng-model="add_person.firstname" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Last Name</label>
+                                                            <input class="form-control"  type="text" data-ng-model="add_person.lastname" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Phone</label>
+                                                            <input class="form-control"  type="text" data-ng-model="add_person.phone">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input class="form-control"  type="text" data-ng-model="add_person.email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Description</label>
+                                                            <input class="form-control"  type="text" data-ng-model="add_person.description">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Particant Role</label>
+                                                            <select ng-model="add_person.role" ng-options="role.label for role in roles">
 
+                                                            </select>
+                                                        </div>
+                                                        <button type="button" class="btn btn-danger" ng-click="savePerson()">Create</button>
+                                                    </form>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                            <!-- end add person -->
+                                        </div>
+                                    </tab>
+                                    <tab heading="Issues">Coming Soon.......</tab>
+                                    <tab heading="Tasks">Coming Soon...........</tab>
+                                    <tab heading="Notes">Coming Soon.............</tab>
+                                </tabset>
                         </div>
                     </div>
                 </div>
-                {{ matter_viewing.people | json}}
                 <!-- end right column with forms and actions -->
 
             </div>
