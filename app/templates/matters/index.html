@@ -1,5 +1,6 @@
 <div class="container">
     <ng-include src="nav.url"></ng-include>
+
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="row clearfix">
@@ -57,7 +58,20 @@
                         <div class="panel-body">
                             <tabset>
                                 <tab heading="Details">{{ matter_viewing.description }}</tab>
-                                <tab heading="People">Coming Soon...</tab>
+                                <tab heading="People">
+                                    <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Witnesses</h4>
+                                    <ol class="list-group">
+                                        <li class="list-group-item" ng-repeat="witness in matter_viewing.people.witness">
+                                            <a href="" ng-click="personClicked(witness)">{{ witness.firstname }} {{ witness.lastname }}</a>
+                                        </li>
+                                    </ol>
+                                    <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Other</h4>
+                                    <ol class="list-group">
+                                        <li class="list-group-item" ng-repeat="victom in matter_viewing.people.victom">
+                                            <a href="" ng-click="personClicked(victom)">{{ victom.firstname }} {{ victom.lastname }}</a>
+                                        </li>
+                                    </ol>
+                                </tab>
                                 <tab heading="Issues">Coming Soon.......</tab>
                                 <tab heading="Tasks">Coming Soon...........</tab>
                                 <tab heading="Notes">Coming Soon.............</tab>
@@ -67,6 +81,7 @@
                         </div>
                     </div>
                 </div>
+                {{ matter_viewing.people | json}}
                 <!-- end right column with forms and actions -->
 
             </div>

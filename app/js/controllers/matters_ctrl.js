@@ -1,7 +1,7 @@
 var sitesController = angular.module('matters_ctrl', []);
 
-sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$route', '$routeParams', 'MattersService',
-    function($scope, $http, $location, $route, $routeParams, MattersService){
+sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$route', '$routeParams', 'MattersService', 'Noty',
+    function($scope, $http, $location, $route, $routeParams, MattersService, Noty){
         $scope.matter_viewing = {};
         MattersService.query(function(data){
             $scope.matters = data;
@@ -13,11 +13,12 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         $scope.action = "Matters"
 
         $scope.activeMatter = function(matter) {
+            $location.path("/dashboard/matters/" + matter.id);
             $scope.matter_viewing = matter;
+            Noty("Loading matter " + matter.name, 'success')
         }
 
         $scope.getActive = function(data) {
-            console.log($routeParams.mid);
             if(!$routeParams.mid) {
                 $scope.matter_viewing = data[0];
                 return;
