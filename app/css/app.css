@@ -11,3 +11,15 @@ div.matters {
 .tab-content {
     padding: 15px;
 }
+
+li.active a {
+    color: white;
+}
+
+li.list-group-item.odd {
+    background-color: rgb(243, 243, 243);
+}
+
+div.left-side {
+    border-left: 1px solid #d9edf7;
+}

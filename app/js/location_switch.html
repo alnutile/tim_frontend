@@ -1,0 +1,35 @@
+<address>
+    <span class="animate-switch-container col-lg-12" ng-switch on="edit_mode">
+        <span class="animate-switch-container" ng-switch-default>{{matter_viewing.location.name}}</span>
+        <span class="form-group col-xs-6" class="animate-switch-container" ng-switch-when="1">
+          <input type="text" class="form-control input-sm" ng-model="matter_viewing.location.name">
+        </span>
+    </span>
+    <br>
+    <span class="animate-switch-container col-lg-12" ng-switch on="edit_mode">
+        <span class="animate-switch-container" ng-switch-default>{{matter_viewing.location.street}}</span>
+        <span class="form-group col-xs-6" class="animate-switch-container" ng-switch-when="1">
+          <input type="text" class="form-control input-sm" ng-model="matter_viewing.location.street">
+        </span>
+    </span>
+    <br>
+    <span class="animate-switch-container col-lg-12" ng-switch on="edit_mode">
+        <span class="animate-switch-container" ng-switch-default>{{matter_viewing.location.city}}</span>
+        <span class="form-group col-xs-6" class="animate-switch-container" ng-switch-when="1">
+          <input type="text" class="form-control input-sm" ng-model="matter_viewing.location.city">
+        </span>
+    </span>
+    <br>
+    <span class="animate-switch-container col-lg-12" ng-switch on="edit_mode">
+        <span class="animate-switch-container" ng-switch-default>{{matter_viewing.location.state}}</span>
+        <span class="form-group col-xs-6" class="animate-switch-container" ng-switch-when="1">
+          <input type="text" class="form-control input-sm" ng-model="matter_viewing.location.state">
+        </span>
+    </span>
+    <span class="animate-switch-container col-lg-12" ng-switch on="edit_mode">
+        <span class="animate-switch-container" ng-switch-default>{{matter_viewing.location.zip}}</span>
+        <span class="form-group col-xs-6" class="animate-switch-container" ng-switch-when="1">
+          <input type="text" class="form-control input-sm" ng-model="matter_viewing.location.zip">
+        </span>
+    </span>
+</address>
