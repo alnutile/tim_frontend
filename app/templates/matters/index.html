@@ -235,19 +235,96 @@
                                                 <tr>
                                                     <th>Name</th>
                                                     <th>Date</th>
+                                                    <th>Time</th>
                                                     <th>Location</th>
                                                     <th>Type</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr ng-repeat="event in matter_viewing.events">
-                                                    <td>{{ event.name }}</td>
-                                                    <td>{{ event.date }}</td>
-                                                    <td>{{ event.location_id | location:this}}</td>
-                                                    <td>{{ event.event_type }}</td>
+                                                    <td>
+                                                        <div>
+                                                            <span ng-if="!edit_event_mode[event.event_id]">{{ event.name }}</span>
+                                                            <span ng-if="edit_event_mode[event.event_id]">
+                                                                <input type="text" ng-model="event.name" class="form-control input-sm" required="required">
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <span ng-if="!edit_event_mode[event.event_id]">{{ event.date }}</span>
+                                                            <span ng-if="edit_event_mode[event.event_id]">
+                                                                <input class="form-control input-sm" type="text" datepicker-popup="{{format}}"
+                                                                       data-ng-model="event.date"
+                                                                       is-open="opened" min="2013-06-22" datepicker-options="dateOptions"
+                                                                       close-text="Close" class="form-control input-sm" required="required">
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <span ng-if="!edit_event_mode[event.event_id]">{{ event.time }}</span>
+                                                            <span ng-if="edit_event_mode[event.event_id]">
+                                                                <input type="text" ng-model="event.time" class="form-control input-sm" required="required">
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <span ng-if="!edit_event_mode[event.event_id]">
+                                                                {{ event.location_id | location:this }}
+                                                            </span>
+                                                            <span ng-if="edit_event_mode[event.event_id]">
+                                                                <select
+                                                                        ng-model="event.location_id"
+                                                                        ng-options="l.id as l.name for l in locations"
+                                                                        class="form-control input-sm">
+                                                                </select>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            <span ng-if="!edit_event_mode[event.event_id]">
+                                                                {{ event.event_type | eventType:this }}
+                                                            </span>
+                                                            <span ng-if="edit_event_mode[event.event_id]">
+                                                                <select
+                                                                        ng-model="event.event_type"
+                                                                        ng-options="e.key as e.label for e in matters_fields.event_types"
+                                                                        class="form-control input-sm">
+                                                                </select>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i class="glyphicon glyphicon-pencil" ng-click="setEditEventMode(event.event_id)"></i>
+                                                        <i class="glyphicon glyphicon-save" ng-click="updateEvent(event.event_id)"></i>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <button type="button" class="glyphicon glyphicon-plus-sign btn btn-success" ng-click="addEvent()">Add</button>
+
+                                        <!-- add new event -->
+                                        <form class="form-group" ng-if="eventFormShow" name="newEventForm">
+                                            <label>Event Name</label><input type="text" ng-model="newEvent.name" class="form-control" required="required">
+                                            <label>Date</label><input class="form-control input-sm" type="text" datepicker-popup="{{format}}"
+                                                   data-ng-model="newEvent.date"
+                                                   is-open="opened" min="2013-06-22" datepicker-options="dateOptions"
+                                                   close-text="Close" class="form-control" required="required">
+                                            <label>Time:</label>
+                                            <input type="text" ng-model="newEvent.time" class="form-control input-sm" required="required" placeholder="04:30:00">
+                                            <label>Location</label>
+                                                <select ng-model="newEvent.location_id" ng-options="l.id as l.name for l in locations" class="form-control">
+                                                </select>
+                                            <label>Type</label>
+                                                <select ng-model="newEvent.event_type" ng-options="e.key as e.label for e in matters_fields.event_types" class="form-control"></select>
+                                            <label>Notes</label><input type="text" ng-model="newEvent.description" class="form-control">
+                                            <button type="submit" class="btn btn-success" ng-click="submitEvent()" ng-disabled="newEventForm .$invalid || isUnchanged(newEvent)">Add Event</button>
+                                        </form>
+                                        <!-- end add new event -->
 
                                     </tab>
 
@@ -261,8 +338,8 @@
                                             </ol>
                                             <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Other</h4>
                                             <ol class="list-group">
-                                                <li class="list-group-item" ng-repeat="victom in matter_viewing.people.victom">
-                                                    <a href="" ng-click="activePerson(victom)">{{ victom.firstname }} {{ victom.lastname }}</a>
+                                                <li class="list-group-item" ng-repeat="victim in matter_viewing.people.victom">
+                                                    <a href="" ng-click="activePerson(victim)">{{ victim.firstname }} {{ victim.lastname }}</a>
                                                 </li>
                                             </ol>
                                         </div>

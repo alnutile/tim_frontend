@@ -47,4 +47,16 @@ keyToValue.filter("caseType", ['$rootScope', function($rootScope) {
             }
             return output;
         };
+    }]).filter("eventType", ['$rootScope', function($rootScope) {
+        return function(value, scope) {
+            var output = value;
+            if(!angular.isUndefined(value)) {
+                angular.forEach(scope.matters_fields.event_types, function(v,i){
+                    if(v.key == value) {
+                        output = v.label;
+                    }
+                })
+            }
+            return output;
+        };
     }]);

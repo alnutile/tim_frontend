@@ -5,7 +5,10 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         $scope.matter_viewing = {};
         $scope.edit_person = {};
         $scope.edit_created = 0;
+        $scope.edit_event_mode = [];
         $scope.matters_fields = {};
+        $scope.newEvent = {};
+        $scope.eventFormShow = 0;
         //Start Calendar Widget
         $scope.format = 'MM/dd/yyyy';
 
@@ -44,7 +47,6 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
 
         MatterFields.query(
             function(data) {
-                console.log(data);
                 $scope.matters_fields = data;
                 $scope.roles = data.roles;
             }
@@ -82,7 +84,6 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         $scope.savePerson  = function() {
             Noty("<i class='glyphicon glyphicon-user'></i> New person added click edit to continue", 'warning');
             //@TODO get the new ID of the person to make sure there is a full model to add
-            console.log($scope.matter_viewing.people);
             $scope.add_person.id = $scope.matter_viewing.people.witness.length + 1;
             console.log($scope.add_person);
             //@TODO make a method to push it into the correct place eg witness
@@ -126,6 +127,42 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                    return;
                }
             });
+        }
+
+        //Add Event
+        $scope.setEditEventMode = function(id) {
+            console.log(id);
+            $scope.edit_event_mode[id] = 1;
+            if(id != 0) {
+                Noty("<i class='glyphicon glyphicon-user'></i> You can edit the event", 'warning');
+            } else {
+                $scope.edit_event_mode[id] = null;
+                Noty("<i class='glyphicon glyphicon-user'></i> Event Saved", 'warning');
+            }
+        }
+
+        $scope.updateEvent = function(id) {
+                $scope.edit_event_mode[id] = null;
+                Noty("<i class='glyphicon glyphicon-user'></i> Event Saved", 'warning');
+        }
+
+        $scope.addEvent = function() {
+            $scope.eventFormShow = 1;
+            Noty("<i class='glyphicon glyphicon-user'></i> Adding Event", 'warning');
+
+        }
+
+        $scope.submitEvent = function() {
+            var eventCreate = new EventsService($scope.newEvent);
+            //@TODO might be the first fuction is pass/fail and I need to look at the status messsage
+            var response = eventCreate.$save(function(data){
+                Noty("<i class='glyphicon glyphicon-user'></i> Event Added", 'warning');
+                $scope.matter_viewing.events.push($scope.newEvent);
+                $scope.newEvent = null;
+            }, function(data){
+                Noty("<i class='glyphicon glyphicon-user'></i> Event could not be added", 'error');
+            });
+
         }
 
     }]);

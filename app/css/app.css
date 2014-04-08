@@ -23,3 +23,7 @@ li.list-group-item.odd {
 div.left-side {
     border-left: 1px solid #d9edf7;
 }
+
+.matters li.list-group-item {
+    padding: 2px 14px;
+}
