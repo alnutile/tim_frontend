@@ -3695,6 +3695,7 @@ app.run(function($httpBackend, $location, $rootScope) {
     $httpBackend.whenGET('/api/v1/locations').respond(locations);
     $httpBackend.whenGET('/api/v1/events').respond(events);
     $httpBackend.whenPOST('/api/v1/events').respond(event_saved);
+    $httpBackend.whenPUT('/api/v1/events/event_19').respond(event_saved);
 
     $httpBackend.whenGET('/api/v1/matters').respond(matters);
     $httpBackend.whenGET('/api/v1/matters_fields').respond(matters_fields);

@@ -1,0 +1,9 @@
+<h5>Person</h5>
+<div class="well">
+    Name: {{ active_person.firstname }} {{ active_person.lastname }}<br>
+    Phone: {{ active_person.phone }}<br>
+    Email: <a href="mailto:{{ active_person.email }}?Subject=Matter:%20{{matter_viewing.case_id}}%20">{{ active_person.email }}</a><br>
+    <hr>
+    <button type="button" class="btn btn-success" ng-disabled="active_person_is_active" ng-click="editPerson(active_person)">edit</button>
+    <button type="button" class="btn btn-primary" ng-click="addPerson()">Add</button>
+</div>

@@ -1,0 +1,23 @@
+<div class="modal-header">Add Event</div>
+<div class="modal-body">
+    <form class="form-group" name="newEventForm">
+        <label>Event Name</label><input type="text" ng-model="newEvent.name" class="form-control" required="required">
+        <label>Date</label>
+        <input class="form-control input-sm" type="text" datepicker-popup="{{format}}"
+               data-ng-model="newEvent.date"
+               is-open="opened" min="2013-06-22" datepicker-options="dateOptions"
+               close-text="Close" class="form-control" required="required">
+        <label>Time:</label>
+        <input type="text" ng-model="newEvent.time" class="form-control input-sm" required="required" placeholder="04:30:00">
+        <label>Location</label>
+        <select ng-model="newEvent.location_id" ng-options="l.id as l.name for l in locations" class="form-control">
+        </select>
+        <label>Type</label>
+        <select ng-model="newEvent.event_type" ng-options="e.key as e.label for e in matters_fields.event_types" class="form-control"></select>
+        <label>Notes</label><input type="text" ng-model="newEvent.description" class="form-control">
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success" ng-click="submitEvent()">Add Event</button>
+            <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

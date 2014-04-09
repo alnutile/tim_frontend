@@ -1,7 +1,7 @@
 var sitesController = angular.module('matters_ctrl', []);
 
-sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$route', '$routeParams', 'MattersService', 'Noty', '$sce', 'MatterFields', 'PeopleService', 'LocationService', 'EventsService',
-    function($scope, $http, $location, $route, $routeParams, MattersService, Noty, $sce, MatterFields, PeopleService, LocationService, EventsService){
+sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$route', '$routeParams', 'MattersService', 'Noty', '$sce', 'MatterFields', 'PeopleService', 'LocationService', 'EventsService', '$modal',
+    function($scope, $http, $location, $route, $routeParams, MattersService, Noty, $sce, MatterFields, PeopleService, LocationService, EventsService, $modal){
         $scope.matter_viewing = {};
         $scope.edit_person = {};
         $scope.edit_created = 0;
@@ -15,8 +15,6 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         $scope.today = function() {
             $scope.dt = new Date();
         };
-
-        $scope.today();
 
         $scope.clear = function () {
             $scope.dt = null;
@@ -71,7 +69,6 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
 
         $scope.active_person_is_active = 1; //1 to disable the button
 
-
         $scope.nav = { name: "nav", url: "templates/shared/nav.html" }
 
         $scope.action = "Matters"
@@ -100,20 +97,6 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             Noty("<i class='glyphicon glyphicon-th'></i> Loading matter " + matter.name, 'success');
         }
 
-        $scope.updatePerson = function(matter) {
-            Noty("<i class='glyphicon glyphicon-user'></i> Updated " + matter.name, 'information');
-        }
-
-        $scope.activePerson = function(person) {
-            $scope.active_person = person;
-            $scope.active_person_is_active = 0; //0 to enable the button
-        };
-
-        $scope.editPerson = function(person) {
-            $scope.edit_person = person;
-            Noty("<i class='glyphicon glyphicon-pencil'></i> Edit Person " + person.firstname, 'success');
-
-        };
 
         $scope.getActive = function(data) {
             if(!$routeParams.mid) {
@@ -131,7 +114,6 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
 
         //Add Event
         $scope.setEditEventMode = function(id) {
-            console.log(id);
             $scope.edit_event_mode[id] = 1;
             if(id != 0) {
                 Noty("<i class='glyphicon glyphicon-user'></i> You can edit the event", 'warning');
@@ -139,19 +121,108 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                 $scope.edit_event_mode[id] = null;
                 Noty("<i class='glyphicon glyphicon-user'></i> Event Saved", 'warning');
             }
-        }
-
-        $scope.updateEvent = function(id) {
-                $scope.edit_event_mode[id] = null;
-                Noty("<i class='glyphicon glyphicon-user'></i> Event Saved", 'warning');
-        }
+        };
 
         $scope.addEvent = function() {
-            $scope.eventFormShow = 1;
-            Noty("<i class='glyphicon glyphicon-user'></i> Adding Event", 'warning');
+            var modalInstance  = $modal.open({
+                templateUrl: 'templates/events/new.html',
+                controller: 'ModalEventAdd',
+                resolve: {
+                    locations: function() {
+                        return $scope.locations;
+                    },
+                    matters_fields: function() {
+                        return $scope.matters_fields;
+                    },
+                    matter_viewing: function() {
+                        return $scope.matter_viewing;
+                    }
+
+                }
+            });
+            modalInstance.result.then(function(event){
+                Noty("<i class='glyphicon glyphicon-user'></i> You will see the  event below", 'warning');
+            });
+        };
+
+        $scope.updatePerson = function(person) {
+            $scope.active_person = person;
+            $scope.original = angular.copy(person);
+            var modalInstance  = $modal.open({
+                templateUrl: 'templates/people/edit.html',
+                controller: 'ModalPersonUpdate',
+                resolve: {
+                    edit_person: function() {
+                        return $scope.active_person;
+                    }
+                }
+            });
+            modalInstance.result.then(function(person){
+                console.log(person);
+                Noty("<i class='glyphicon glyphicon-user'></i> Person modified", 'warning');
+            }, function(original){
+                Noty("<i class='glyphicon glyphicon-user'></i> Your update and changes where canceled", 'warning');
+            });
 
         }
 
+        $scope.updateEvent = function(event) {
+            $scope.current_event = event;
+            var modalInstance  = $modal.open({
+                templateUrl: 'templates/events/edit.html',
+                controller: 'ModalEventUpdate',
+                resolve: {
+                    locations: function() {
+                        return $scope.locations;
+                    },
+                    matters_fields: function() {
+                        return $scope.matters_fields;
+                    },
+                    matter_viewing: function() {
+                        return $scope.matter_viewing;
+                    },
+                    event: function() {
+                        return $scope.current_event;
+                    }
+                }
+            });
+            modalInstance.result.then(function(event){
+                console.log(event);
+                Noty("<i class='glyphicon glyphicon-user'></i> You will see the  event below", 'warning');
+            }, function(original){
+                angular.forEach($scope.matter_viewing.events, function(v, i){
+                    //@TODO Ideally here I would reset the original
+                });
+                Noty("<i class='glyphicon glyphicon-user'></i> Your update and changes where canceled", 'warning');
+            });
+        };
+    }]).controller('ModalEventAdd', ['$scope', '$modalInstance', 'matters_fields', 'locations', 'EventsService', 'Noty', 'matter_viewing', function($scope, $modalInstance, matters_fields, locations, EventsService, Noty, matter_viewing){
+        //Start Calendar Widget
+        $scope.newEvent = {};
+        $scope.matter_viewing = matter_viewing;
+        $scope.format = 'MM/dd/yyyy';
+        $scope.locations = locations;
+        $scope.matters_fields = matters_fields;
+
+        $scope.today = function() {
+            $scope.dt = new Date();
+        };
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.opened = true;
+        };
+
+        $scope.dateOptions = {
+            'year-format': "'yyyy'",
+            'starting-day': 1
+        };
+        //End Calendar
         $scope.submitEvent = function() {
             var eventCreate = new EventsService($scope.newEvent);
             //@TODO might be the first fuction is pass/fail and I need to look at the status messsage
@@ -159,10 +230,72 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                 Noty("<i class='glyphicon glyphicon-user'></i> Event Added", 'warning');
                 $scope.matter_viewing.events.push($scope.newEvent);
                 $scope.newEvent = null;
+                $modalInstance.close();
             }, function(data){
                 Noty("<i class='glyphicon glyphicon-user'></i> Event could not be added", 'error');
             });
+        };
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    }]).controller('ModalEventUpdate', ['$scope', '$modalInstance', 'matters_fields', 'locations', 'EventsService', 'Noty', 'matter_viewing', 'event', function($scope, $modalInstance, matters_fields, locations, EventsService, Noty, matter_viewing, event){
+        //Start Calendar Widget
+        $scope.newEvent = {};
+        $scope.matter_viewing = matter_viewing;
+        $scope.format = 'MM/dd/yyyy';
+        $scope.locations = locations;
+        $scope.matters_fields = matters_fields;
+        $scope.event = event;
+        $scope.original = {};
+        angular.copy(event, $scope.original);
 
-        }
 
+        $scope.today = function() {
+            $scope.dt = new Date();
+        };
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.opened = true;
+        };
+
+        $scope.dateOptions = {
+            'year-format': "'yyyy'",
+            'starting-day': 1
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss($scope.original);
+        };
+
+        $scope.updateEvent = function() {
+            console.log($scope.event);
+            //@TODO might be the first fuction is pass/fail and I need to look at the status messsage
+            var response = EventsService.update({eid: $scope.event.event_id}, $scope.event, function(data){
+                Noty("<i class='glyphicon glyphicon-user'></i> Event Updated", 'warning');
+                $modalInstance.close();
+            }, function(data){
+                Noty("<i class='glyphicon glyphicon-user'></i> Event could not be updated", 'error');
+            });
+        };
+    }]).controller('ModalPersonUpdate', ['$scope', '$modalInstance', 'Noty', 'edit_person', 'PeopleService', function($scope, $modalInstance, Noty, edit_person, PeopleService){
+        $scope.edit_person = edit_person;
+        $scope.original = angular.copy(edit_person);
+        $scope.cancel = function () {
+            $modalInstance.dismiss($scope.original);
+        };
+
+        $scope.updateEvent = function() {
+            var response = PeopleService.update({pid: $scope.edit_person.id}, $scope.edit_person, function(data){
+                Noty("<i class='glyphicon glyphicon-user'></i> Person Updated", 'warning');
+                $modalInstance.close();
+            }, function(data){
+                Noty("<i class='glyphicon glyphicon-user'></i> Person could not be updated", 'error');
+            });
+        };
     }]);

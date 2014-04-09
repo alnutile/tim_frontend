@@ -244,187 +244,58 @@
                                             <tbody>
                                                 <tr ng-repeat="event in matter_viewing.events">
                                                     <td>
-                                                        <div>
-                                                            <span ng-if="!edit_event_mode[event.event_id]">{{ event.name }}</span>
-                                                            <span ng-if="edit_event_mode[event.event_id]">
-                                                                <input type="text" ng-model="event.name" class="form-control input-sm" required="required">
-                                                            </span>
-                                                        </div>
+                                                       {{ event.name }}
                                                     </td>
                                                     <td>
-                                                        <div>
-                                                            <span ng-if="!edit_event_mode[event.event_id]">{{ event.date }}</span>
-                                                            <span ng-if="edit_event_mode[event.event_id]">
-                                                                <input class="form-control input-sm" type="text" datepicker-popup="{{format}}"
-                                                                       data-ng-model="event.date"
-                                                                       is-open="opened" min="2013-06-22" datepicker-options="dateOptions"
-                                                                       close-text="Close" class="form-control input-sm" required="required">
-                                                            </span>
-                                                        </div>
+                                                        {{ event.date }}
                                                     </td>
                                                     <td>
-                                                        <div>
-                                                            <span ng-if="!edit_event_mode[event.event_id]">{{ event.time }}</span>
-                                                            <span ng-if="edit_event_mode[event.event_id]">
-                                                                <input type="text" ng-model="event.time" class="form-control input-sm" required="required">
-                                                            </span>
-                                                        </div>
+                                                        {{ event.time }}
                                                     </td>
                                                     <td>
-                                                        <div>
-                                                            <span ng-if="!edit_event_mode[event.event_id]">
-                                                                {{ event.location_id | location:this }}
-                                                            </span>
-                                                            <span ng-if="edit_event_mode[event.event_id]">
-                                                                <select
-                                                                        ng-model="event.location_id"
-                                                                        ng-options="l.id as l.name for l in locations"
-                                                                        class="form-control input-sm">
-                                                                </select>
-                                                            </span>
-                                                        </div>
+                                                        {{ event.location_id | location:this }}
                                                     </td>
                                                     <td>
-                                                        <div>
-                                                            <span ng-if="!edit_event_mode[event.event_id]">
-                                                                {{ event.event_type | eventType:this }}
-                                                            </span>
-                                                            <span ng-if="edit_event_mode[event.event_id]">
-                                                                <select
-                                                                        ng-model="event.event_type"
-                                                                        ng-options="e.key as e.label for e in matters_fields.event_types"
-                                                                        class="form-control input-sm">
-                                                                </select>
-                                                            </span>
-                                                        </div>
+                                                        {{ event.event_type | eventType:this }}
                                                     </td>
                                                     <td>
-                                                        <i class="glyphicon glyphicon-pencil" ng-click="setEditEventMode(event.event_id)"></i>
-                                                        <i class="glyphicon glyphicon-save" ng-click="updateEvent(event.event_id)"></i>
+                                                        <i class="glyphicon glyphicon-pencil" ng-click="updateEvent(event)"></i>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <button type="button" class="glyphicon glyphicon-plus-sign btn btn-success" ng-click="addEvent()">Add</button>
 
-                                        <!-- add new event -->
-                                        <form class="form-group" ng-if="eventFormShow" name="newEventForm">
-                                            <label>Event Name</label><input type="text" ng-model="newEvent.name" class="form-control" required="required">
-                                            <label>Date</label><input class="form-control input-sm" type="text" datepicker-popup="{{format}}"
-                                                   data-ng-model="newEvent.date"
-                                                   is-open="opened" min="2013-06-22" datepicker-options="dateOptions"
-                                                   close-text="Close" class="form-control" required="required">
-                                            <label>Time:</label>
-                                            <input type="text" ng-model="newEvent.time" class="form-control input-sm" required="required" placeholder="04:30:00">
-                                            <label>Location</label>
-                                                <select ng-model="newEvent.location_id" ng-options="l.id as l.name for l in locations" class="form-control">
-                                                </select>
-                                            <label>Type</label>
-                                                <select ng-model="newEvent.event_type" ng-options="e.key as e.label for e in matters_fields.event_types" class="form-control"></select>
-                                            <label>Notes</label><input type="text" ng-model="newEvent.description" class="form-control">
-                                            <button type="submit" class="btn btn-success" ng-click="submitEvent()" ng-disabled="newEventForm .$invalid || isUnchanged(newEvent)">Add Event</button>
-                                        </form>
-                                        <!-- end add new event -->
-
                                     </tab>
 
-                                    <tab heading="People">
-                                        <div class="col-md-6 column">
-                                            <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Witnesses</h4>
-                                            <ol class="list-group">
-                                                <li class="list-group-item" ng-repeat="witness in matter_viewing.people.witness">
+                                    <tab heading="Witnesses">
+                                        <table class="table table-striped table-bordered table-hover table-condensed">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="witness in matter_viewing.people.witness">
+                                                <td>
                                                     <a href="" ng-click="activePerson(witness)">{{ witness.firstname }} {{ witness.lastname }}</a>
-                                                </li>
-                                            </ol>
-                                            <h4 class="list-group-item"><i class="glyphicon-download glyphicon"></i>&nbsp; Other</h4>
-                                            <ol class="list-group">
-                                                <li class="list-group-item" ng-repeat="victim in matter_viewing.people.victom">
-                                                    <a href="" ng-click="activePerson(victim)">{{ victim.firstname }} {{ victim.lastname }}</a>
-                                                </li>
-                                            </ol>
-                                        </div>
-                                        <div class="col-md-6 column">
-                                            <h5>Person</h5>
-                                            <div class="well">
-                                                Name: {{ active_person.firstname }} {{ active_person.lastname }}<br>
-                                                Phone: {{ active_person.phone }}<br>
-                                                Email: <a href="mailto:{{ active_person.email }}?Subject=Matter:%20{{matter_viewing.case_id}}%20">{{ active_person.email }}</a><br>
-                                                <hr>
-                                                <button type="button" class="btn btn-success" ng-disabled="active_person_is_active" ng-click="editPerson(active_person)">edit</button>
-                                                <button type="button" class="btn btn-primary" ng-click="addPerson()">Add</button>
-                                            </div>
-                                            <!-- start edit a person -->
-                                            <div class="animate-switch-container well"
-                                                 ng-switch ng-if="edit_person.id">
-                                                <h5>Edit Person</h5>
-                                                <div class="animate-switch">
-                                                    <form>
-                                                        <div class="form-group">
-                                                            <label>First Name</label>
-                                                            <input class="form-control" type="text" data-ng-model="edit_person.firstname">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Last Name</label>
-                                                            <input class="form-control"  type="text" data-ng-model="edit_person.lastname">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Phone</label>
-                                                            <input class="form-control"  type="text" data-ng-model="edit_person.phone">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Email</label>
-                                                            <input class="form-control"  type="text" data-ng-model="edit_person.email">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Description</label>
-                                                            <input class="form-control"  type="text" data-ng-model="edit_person.description">
-                                                        </div>
-                                                        <button type="button" class="btn btn-danger" ng-disabled="active_person_is_active" ng-click="updatePerson(active_person)">Update</button>
-                                                    </form>
-                                                    <hr>
-                                                </div>
-                                            </div>
-                                            <!-- end edit a person -->
-
-                                            <!-- start add a person -->
-                                            <div class="animate-switch-container well"
-                                                 ng-switch ng-if="add_person">
-                                                <h5>Add Person</h5>
-                                                <div class="animate-switch">
-                                                    <form>
-                                                        <div class="form-group">
-                                                            <label>First Name</label>
-                                                            <input class="form-control" type="text" data-ng-model="add_person.firstname" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Last Name</label>
-                                                            <input class="form-control"  type="text" data-ng-model="add_person.lastname" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Phone</label>
-                                                            <input class="form-control"  type="text" data-ng-model="add_person.phone">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Email</label>
-                                                            <input class="form-control"  type="text" data-ng-model="add_person.email">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Description</label>
-                                                            <input class="form-control"  type="text" data-ng-model="add_person.description">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Particant Role</label>
-                                                            <select ng-model="add_person.role" ng-options="role.label for role in roles">
-
-                                                            </select>
-                                                        </div>
-                                                        <button type="button" class="btn btn-danger" ng-click="savePerson()">Create</button>
-                                                    </form>
-                                                    <hr>
-                                                </div>
-                                            </div>
-                                            <!-- end add person -->
-                                        </div>
+                                                </td>
+                                                <td>
+                                                    {{ witness.phone }}
+                                                </td>
+                                                <td>
+                                                    <a href="mailto:{{ witness.email }}?Subject=Matter:%20{{matter_viewing.case_id}}%20">{{ witness.email }}</a>
+                                                </td>
+                                                <td>
+                                                    <i class="glyphicon glyphicon-pencil" ng-click="updatePerson(witness)"></i>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type="button" class="glyphicon glyphicon-plus-sign btn btn-success" ng-click="addPerson()">Add</button>
                                     </tab>
                                     <tab heading="Issues">Coming Soon.......</tab>
                                     <tab heading="Tasks">Coming Soon...........</tab>
