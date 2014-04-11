@@ -3691,11 +3691,21 @@ app.run(function($httpBackend, $location, $rootScope) {
             'message':  'Event Saved',
             'data':     11111
         };
+
+    var person_saved         =
+    {
+        'status':   'success',
+        'message':  'Person Saved',
+        'data':     11111
+    };
+
     $httpBackend.whenGET('/api/v1/people').respond(people);
     $httpBackend.whenGET('/api/v1/locations').respond(locations);
     $httpBackend.whenGET('/api/v1/events').respond(events);
     $httpBackend.whenPOST('/api/v1/events').respond(event_saved);
+    $httpBackend.whenPOST('/api/v1/people').respond(person_saved);
     $httpBackend.whenPUT('/api/v1/events/event_19').respond(event_saved);
+    $httpBackend.whenPUT('/api/v1/people/8c3ab957-1cab-441d-8f57-3a4d9b959a8d').respond(person_saved);
 
     $httpBackend.whenGET('/api/v1/matters').respond(matters);
     $httpBackend.whenGET('/api/v1/matters_fields').respond(matters_fields);

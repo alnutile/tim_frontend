@@ -1,6 +1,6 @@
+<div class="modal-header">Edit Person</div>
+<div class="modal-body">
 
-    <h5>Edit Person</h5>
-    <div class="animate-switch">
         <form>
             <div class="form-group">
                 <label>First Name</label>
@@ -22,7 +22,9 @@
                 <label>Description</label>
                 <input class="form-control"  type="text" data-ng-model="edit_person.description">
             </div>
-            <button type="button" class="btn btn-danger" ng-disabled="active_person_is_active" ng-click="updatePerson(active_person)">Update</button>
+            <button type="button" class="btn btn-success" ng-click="updatePerson(active_person)">Update</button>
+            <button type="submit" class="btn btn-danger" ng-click="cancelEditPerson()">Cancel</button>
         </form>
         <hr>
+
     </div>

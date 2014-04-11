@@ -73,30 +73,11 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
 
         $scope.action = "Matters"
 
-        $scope.addPerson  = function() {
-            $scope.add_person = {};
-            Noty("<i class='glyphicon glyphicon-user'></i> Add a new Person", 'warning');
-        }
-
-        $scope.savePerson  = function() {
-            Noty("<i class='glyphicon glyphicon-user'></i> New person added click edit to continue", 'warning');
-            //@TODO get the new ID of the person to make sure there is a full model to add
-            $scope.add_person.id = $scope.matter_viewing.people.witness.length + 1;
-            console.log($scope.add_person);
-            //@TODO make a method to push it into the correct place eg witness
-            //  taking the ID of the role and finding the related role name
-            $scope.matter_viewing.people.witness.push($scope.add_person);
-            $scope.people.push($scope.add_person);
-            $scope.edit_person = $scope.add_person;
-            $scope.add_person = null;
-        }
-
         $scope.activeMatter = function(matter) {
             $location.path("/dashboard/matters/" + matter.id);
             $scope.matter_viewing = matter;
             Noty("<i class='glyphicon glyphicon-th'></i> Loading matter " + matter.name, 'success');
         }
-
 
         $scope.getActive = function(data) {
             if(!$routeParams.mid) {
@@ -123,6 +104,7 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             }
         };
 
+        //Triggerr modal interaction and controllers
         $scope.addEvent = function() {
             var modalInstance  = $modal.open({
                 templateUrl: 'templates/events/new.html',
@@ -145,6 +127,7 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             });
         };
 
+        //Trigger modal interaction and controllers
         $scope.updatePerson = function(person) {
             $scope.active_person = person;
             $scope.original = angular.copy(person);
@@ -158,14 +141,33 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                 }
             });
             modalInstance.result.then(function(person){
-                console.log(person);
                 Noty("<i class='glyphicon glyphicon-user'></i> Person modified", 'warning');
             }, function(original){
                 Noty("<i class='glyphicon glyphicon-user'></i> Your update and changes where canceled", 'warning');
             });
 
+        };
+
+        $scope.addPerson = function() {
+            $scope.active_person = {};
+            var modalInstance  = $modal.open({
+                templateUrl: 'templates/people/add.html',
+                controller: 'ModalPersonAdd',
+                resolve: {
+                    roles: function() {
+                        return $scope.roles;
+                    }
+                }
+            });
+            modalInstance.result.then(function(person){
+                $scope.matter_viewing.people.witness.push(person);
+                Noty("<i class='glyphicon glyphicon-user'></i> Person added", 'warning');
+            }, function(original){
+                Noty("<i class='glyphicon glyphicon-user'></i> Person add canceled", 'warning');
+            });
         }
 
+        //Trigger modal interaction and controllers
         $scope.updateEvent = function(event) {
             $scope.current_event = event;
             var modalInstance  = $modal.open({
@@ -187,15 +189,13 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                 }
             });
             modalInstance.result.then(function(event){
-                console.log(event);
                 Noty("<i class='glyphicon glyphicon-user'></i> You will see the  event below", 'warning');
             }, function(original){
-                angular.forEach($scope.matter_viewing.events, function(v, i){
-                    //@TODO Ideally here I would reset the original
-                });
+                //@TODO reset the original event
                 Noty("<i class='glyphicon glyphicon-user'></i> Your update and changes where canceled", 'warning');
             });
         };
+
     }]).controller('ModalEventAdd', ['$scope', '$modalInstance', 'matters_fields', 'locations', 'EventsService', 'Noty', 'matter_viewing', function($scope, $modalInstance, matters_fields, locations, EventsService, Noty, matter_viewing){
         //Start Calendar Widget
         $scope.newEvent = {};
@@ -274,7 +274,6 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         };
 
         $scope.updateEvent = function() {
-            console.log($scope.event);
             //@TODO might be the first fuction is pass/fail and I need to look at the status messsage
             var response = EventsService.update({eid: $scope.event.event_id}, $scope.event, function(data){
                 Noty("<i class='glyphicon glyphicon-user'></i> Event Updated", 'warning');
@@ -286,16 +285,32 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
     }]).controller('ModalPersonUpdate', ['$scope', '$modalInstance', 'Noty', 'edit_person', 'PeopleService', function($scope, $modalInstance, Noty, edit_person, PeopleService){
         $scope.edit_person = edit_person;
         $scope.original = angular.copy(edit_person);
-        $scope.cancel = function () {
+        $scope.cancelEditPerson = function () {
             $modalInstance.dismiss($scope.original);
         };
 
-        $scope.updateEvent = function() {
+        $scope.updatePerson = function() {
             var response = PeopleService.update({pid: $scope.edit_person.id}, $scope.edit_person, function(data){
                 Noty("<i class='glyphicon glyphicon-user'></i> Person Updated", 'warning');
                 $modalInstance.close();
             }, function(data){
                 Noty("<i class='glyphicon glyphicon-user'></i> Person could not be updated", 'error');
+            });
+        };
+    }]).controller('ModalPersonAdd', ['$scope', '$modalInstance', 'Noty', 'PeopleService', 'roles', function($scope, $modalInstance, Noty, PeopleService, roles){
+        $scope.roles = roles;
+        $scope.cancelAddPerson = function () {
+            $modalInstance.dismiss($scope.original);
+        };
+
+        $scope.addPerson = function(add_person) {
+            $scope.add_person = add_person;
+            var response = PeopleService.save({}, $scope.add_person, function(data){
+                Noty("<i class='glyphicon glyphicon-user'></i> Person Added", 'warning');
+                $scope.add_person.id = data.data;
+                $modalInstance.close($scope.add_person);
+            }, function(data){
+                Noty("<i class='glyphicon glyphicon-user'></i> Person could not be added. Press ESC to close this window", 'error');
             });
         };
     }]);
