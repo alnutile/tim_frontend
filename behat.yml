@@ -1,7 +1,7 @@
 default:
   paths:
-    features:  /Users/alfrednutile/Angular/behat_frontend_angular/test/behat/features
-    bootstrap: /Users/alfrednutile/Angular/behat_frontend_angular/test/behat/features/bootstrap
+    features:  /Users/alfrednutile/Angular/tim_front_end/test/behat/features
+    bootstrap: /Users/alfrednutile/Angular/tim_front_end/test/behat/features/bootstrap
   formatter:
     name: pretty
   extensions:
@@ -20,15 +20,14 @@ closures:
   paths:
     features: features/closures
 
-
 saucelabs:
   extensions:
     Behat\MinkExtension\Extension:
       default_session: selenium2
-      base_url: 'http://angular.behateditor.io/#'
+      base_url: 'http://turbotim.stagingarea.us/#'
       selenium2:
         browser: chrome
-        wd_host: 'alfrednutile2:3e3289cc-b519-43c3-8393-d61438bb20f2@ondemand.saucelabs.com/wd/hub'
+        wd_host: 'alnutile:3e3289cc-b519-43c3-8393-d61438bb20f2@ondemand.saucelabs.com/wd/hub'
         capabilities:
           platform: 'Windows 2012'
           browser: chrome
