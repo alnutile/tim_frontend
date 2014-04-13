@@ -3629,7 +3629,7 @@ app.run(function($httpBackend, $location, $rootScope) {
     $httpBackend.whenGET('/api/v1/events').respond(events);
     $httpBackend.whenPOST('/api/v1/events').respond(event_saved);
     $httpBackend.whenPOST('/api/v1/people').respond(person_saved);
-    $httpBackend.whenPUT('/api/v1/events/event_19').respond(event_saved);
+    $httpBackend.whenPUT(/\/api\/v1\/events\/event_[1-9][0-9]*/).respond(event_saved);
     $httpBackend.whenPUT('/api/v1/people/8c3ab957-1cab-441d-8f57-3a4d9b959a8d').respond(person_saved);
 
     $httpBackend.whenGET('/api/v1/matters').respond(matters);
