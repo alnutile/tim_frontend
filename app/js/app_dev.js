@@ -3362,164 +3362,89 @@ app.run(function($httpBackend, $location, $rootScope) {
     ];
     var people              = [
         {
-            "id": "5e4b52c5-5c6d-4bf3-b814-802a07069f0e",
-            "firstname": "Skinner",
-            "lastname": "Shaffer",
-            "phone": "974-451-2684",
-            "email": "riggswalton@phuel.com",
-            "description": "Id velit eu veniam cillum labore voluptate voluptate. Pariatur cillum ullamco incididunt sunt ad non aliqua duis aute duis sint. Velit cillum ex nulla excepteur labore. Ipsum cupidatat est do ullamco elit nulla irure proident ut duis sit veniam Lorem ipsum. Reprehenderit id proident anim excepteur ipsum ad id in id et commodo veniam eiusmod. Laboris consectetur ad magna aliquip velit minim tempor cillum sit occaecat commodo excepteur cupidatat. Consequat aute ex ea Lorem id veniam labore exercitation qui nisi do voluptate ea.\r\n"
+            "id": "bca84cb0-d46e-4021-bba2-479ebb68ea5a",
+            "firstname": "Turner",
+            "lastname": "Gay",
+            "phone": "(976) 511-2658",
+            "email": "turnergay@twiggery.com",
+            "description": "Proident veniam in cupidatat quis nostrud commodo aliqua. Laborum eiusmod sit ea magna irure laboris culpa consectetur et laborum fugiat.",
+            "prefix": "Mr.",
+            "middle": "",
+            "date_of_birth": "Sun Jan 31 1982 12:19:11 GMT-0500 (EST)",
+            "city": "Makena",
+            "zip": "",
+            "secondary_phone": "",
+            "address1": "Kiely Place",
+            "address2": "",
+            "state": "New Mexico"
         },
         {
-            "id": "8634f389-b80d-48c9-8368-7389399be843",
-            "firstname": "Horton",
-            "lastname": "Eaton",
-            "phone": "959-567-3797",
-            "email": "daycastaneda@uneeq.com",
-            "description": "Id ipsum consectetur reprehenderit culpa laboris esse incididunt aliquip labore quis. Nostrud laboris do Lorem nisi ullamco anim consectetur elit deserunt ipsum aliquip. Incididunt ea id reprehenderit laborum nulla elit. Exercitation est sunt irure deserunt adipisicing ea culpa esse reprehenderit culpa adipisicing. Commodo ea ut labore cupidatat adipisicing irure ad. Ea ex elit non cupidatat laboris est sint qui tempor commodo elit tempor irure. Esse et esse reprehenderit culpa sint irure fugiat aute excepteur dolore qui irure.\r\n"
+            "id": "5a690e10-f3e0-4b4a-98bc-1150c6d40781",
+            "firstname": "Keith",
+            "lastname": "Johnson",
+            "phone": "(817) 541-3657",
+            "email": "keithjohnson@twiggery.com",
+            "description": "Laborum pariatur Lorem qui esse. Irure id exercitation Lorem laborum anim ut velit proident fugiat ullamco amet voluptate.",
+            "prefix": "Mr.",
+            "middle": "",
+            "date_of_birth": "Thu May 02 2013 13:30:47 GMT-0400 (EDT)",
+            "city": "Iola",
+            "zip": "",
+            "secondary_phone": "",
+            "address1": "Jewel Street",
+            "address2": "",
+            "state": "New Jersey"
         },
         {
-            "id": "8de56ce4-1421-4c27-bc39-6eafbee1aa39",
-            "firstname": "Schneider",
-            "lastname": "Gilbert",
-            "phone": "988-409-3779",
-            "email": "nealvincent@zillatide.com",
-            "description": "Anim culpa nulla ullamco fugiat dolor et Lorem duis dolor fugiat eiusmod exercitation Lorem esse. Labore nisi cillum irure voluptate duis ipsum pariatur ea excepteur occaecat. Eiusmod ut ea pariatur amet ullamco Lorem occaecat. Ullamco magna magna labore veniam pariatur adipisicing aliqua cillum esse minim veniam. Ut pariatur eiusmod irure voluptate commodo. Lorem mollit dolore sint nostrud veniam nostrud cillum exercitation anim aliqua id in culpa incididunt.\r\n"
+            "id": "5dd2cc1e-edc4-4555-89ff-165ae7b4c543",
+            "firstname": "Jean",
+            "lastname": "Mcbride",
+            "phone": "(922) 555-3873",
+            "email": "jeanmcbride@twiggery.com",
+            "description": "Mollit consectetur excepteur et eiusmod deserunt aliqua duis consequat laboris. Ea quis enim exercitation incididunt eiusmod irure consectetur.",
+            "prefix": "Mr.",
+            "middle": "",
+            "date_of_birth": "Sun May 11 1975 10:22:35 GMT-0400 (EDT)",
+            "city": "Greenbush",
+            "zip": "",
+            "secondary_phone": "",
+            "address1": "Sutton Street",
+            "address2": "",
+            "state": "Maryland"
         },
         {
-            "id": "a5940227-1730-4045-ad20-82450fd0fc04",
-            "firstname": "Webb",
-            "lastname": "Marshall",
-            "phone": "985-516-3586",
-            "email": "susiebernard@comdom.com",
-            "description": "Cillum incididunt consequat reprehenderit eiusmod voluptate duis veniam sint dolore. Nulla officia tempor cupidatat consectetur proident laborum et ex aliqua ad irure id. Non duis sint sint consectetur ullamco consectetur magna officia pariatur.\r\n"
+            "id": "407f94d6-8735-4feb-a55a-bd36eb71c5ba",
+            "firstname": "Barnes",
+            "lastname": "Simpson",
+            "phone": "(840) 587-2891",
+            "email": "barnessimpson@twiggery.com",
+            "description": "Aute do minim ea ex quis irure. In excepteur consectetur qui do est in.",
+            "prefix": "Mr.",
+            "middle": "",
+            "date_of_birth": "Tue Feb 15 1977 09:07:00 GMT-0500 (EST)",
+            "city": "Clarence",
+            "zip": "",
+            "secondary_phone": "",
+            "address1": "Banker Street",
+            "address2": "",
+            "state": "Georgia"
         },
         {
-            "id": "0aa7e689-2967-4728-956b-f0667cd3a1d4",
-            "firstname": "Ortega",
-            "lastname": "Kemp",
-            "phone": "891-458-3589",
-            "email": "dionneboyle@songlines.com",
-            "description": "Mollit enim dolore incididunt qui officia eiusmod consectetur. Adipisicing ea excepteur minim laborum ex. Do elit magna ea magna.\r\n"
-        },
-        {
-            "id": "42b8cb3c-6638-4227-97c7-cc1c34b0d9a0",
-            "firstname": "Estes",
-            "lastname": "Little",
-            "phone": "841-444-3235",
-            "email": "floydhernandez@zoarere.com",
-            "description": "Culpa culpa et ad ullamco nulla velit magna sint occaecat commodo sunt in. Mollit sit nulla cillum nulla pariatur ea reprehenderit ad anim anim ex. Voluptate aliquip nisi commodo nisi Lorem veniam ipsum excepteur officia do sint irure sit dolore. Ipsum ea voluptate consequat ut irure.\r\n"
-        },
-        {
-            "id": "cc53515b-99b5-410e-aa78-36585c5981d3",
-            "firstname": "Fulton",
-            "lastname": "Tate",
-            "phone": "986-474-2893",
-            "email": "gaycampbell@genesynk.com",
-            "description": "Sunt dolor nostrud anim ex mollit. Aliqua ex eu velit consectetur sunt ullamco in est cupidatat consectetur. Ut in qui Lorem occaecat Lorem fugiat duis ad nulla cupidatat laboris deserunt. Minim non consequat ut occaecat eu aute consequat. Lorem duis ea ad deserunt eiusmod cupidatat aliquip amet veniam ex. Nisi magna ullamco in quis sunt consequat.\r\n"
-        },
-        {
-            "id": "7afc8be7-636f-448e-9772-6e01002ed461",
-            "firstname": "Bryant",
-            "lastname": "Buckley",
-            "phone": "987-596-3436",
-            "email": "sherricrane@enthaze.com",
-            "description": "Tempor nulla deserunt laborum ut Lorem quis elit in deserunt duis consectetur labore. Ut quis qui sit ex esse. Irure irure et labore aute officia consectetur nisi veniam occaecat est. Officia esse qui nulla cillum dolor ex occaecat minim exercitation. Fugiat excepteur sint ipsum sit in. Irure et tempor commodo eiusmod adipisicing. Enim ea fugiat nostrud officia proident non aute consectetur occaecat dolore duis nostrud in.\r\n"
-        },
-        {
-            "id": "f6db8d6c-44c7-47cf-8dcf-ec34074e3d62",
-            "firstname": "Pickett",
-            "lastname": "English",
-            "phone": "967-503-3103",
-            "email": "simonbond@austech.com",
-            "description": "Officia aute consequat minim veniam Lorem labore exercitation mollit. Non excepteur labore cupidatat anim qui incididunt nulla ullamco est velit. Eu excepteur velit nulla do ex sunt dolore ea. Pariatur laboris eiusmod minim incididunt elit ut ex esse Lorem cupidatat exercitation. Velit dolore minim amet ut deserunt ipsum aliquip.\r\n"
-        },
-        {
-            "id": "af106938-ed7f-4cf6-a11d-a06bfa735113",
-            "firstname": "Nielsen",
-            "lastname": "Rosales",
-            "phone": "831-457-3639",
-            "email": "castanedacameron@freakin.com",
-            "description": "Deserunt nostrud cupidatat irure occaecat commodo enim consectetur aliqua velit consectetur dolore occaecat qui. Enim incididunt proident ullamco enim anim amet ea occaecat incididunt sunt magna est. Qui consequat ad ullamco ipsum est enim cupidatat et. Id sunt veniam tempor voluptate mollit et eu id nostrud voluptate in laborum id reprehenderit.\r\n"
-        },
-        {
-            "id": "94f2a941-51e7-478b-93b5-92c283050075",
-            "firstname": "Peters",
-            "lastname": "Finley",
-            "phone": "909-456-3796",
-            "email": "velasquezlane@cinesanct.com",
-            "description": "Id proident est in incididunt occaecat adipisicing officia veniam nulla consectetur fugiat minim. Magna aliqua in eu veniam elit consectetur magna qui. Pariatur aute excepteur in sint elit id ea voluptate veniam. Do exercitation ad proident magna do anim qui Lorem. Exercitation ut consectetur magna sint consectetur veniam laboris irure veniam cillum minim. Velit occaecat quis ad officia amet consequat laboris ad. Labore proident excepteur non sint qui officia et irure ad aute Lorem ipsum.\r\n"
-        },
-        {
-            "id": "9b0462dc-6e35-4ded-9dba-33b06a95e7fc",
-            "firstname": "Owen",
-            "lastname": "Warren",
-            "phone": "961-439-3145",
-            "email": "rosemcbride@parleynet.com",
-            "description": "Id duis et ex nostrud. Cillum ex ut ad officia aliqua nulla dolor exercitation Lorem duis aliquip et fugiat cupidatat. Nostrud sit est deserunt dolor ipsum magna commodo ullamco ea et veniam. Reprehenderit laboris veniam deserunt velit non ea excepteur minim enim magna adipisicing. Magna irure ad cillum irure.\r\n"
-        },
-        {
-            "id": "01314273-0c39-470f-bbf6-bf94d80702bb",
-            "firstname": "Berger",
-            "lastname": "Mason",
-            "phone": "841-593-3906",
-            "email": "gibbsgarrett@techtrix.com",
-            "description": "Adipisicing consectetur laborum commodo voluptate deserunt qui voluptate anim sint ut laborum deserunt officia est. Ut ullamco ut fugiat proident aliqua eu labore ad adipisicing ullamco ut. Exercitation incididunt in non ut laborum aliqua Lorem cillum elit. Anim commodo aute veniam tempor proident. Mollit dolor mollit ipsum id ullamco ad exercitation duis dolore exercitation incididunt. Irure ea et amet dolore sit eiusmod reprehenderit est commodo nisi anim ullamco.\r\n"
-        },
-        {
-            "id": "4a5d4828-c392-4014-97bd-b43146f02701",
-            "firstname": "Buckley",
-            "lastname": "Hurst",
-            "phone": "979-534-3352",
-            "email": "russellacosta@grok.com",
-            "description": "Do anim esse qui ullamco excepteur velit. Occaecat Lorem in eiusmod reprehenderit deserunt ut magna magna. Esse incididunt officia sunt aliquip ex. Ex dolor eiusmod eu adipisicing sint do elit cillum et est adipisicing consectetur eu. Sint sunt est dolor eiusmod. Sunt qui quis magna laboris labore mollit aliquip sit sit in incididunt id laboris. Incididunt dolore anim laboris consectetur exercitation occaecat ad nisi.\r\n"
-        },
-        {
-            "id": "347f60e5-e74d-4aa9-878e-c5f71b9456c2",
-            "firstname": "Britt",
-            "lastname": "Baldwin",
-            "phone": "969-434-2131",
-            "email": "ortizanderson@valreda.com",
-            "description": "Ea pariatur sit deserunt incididunt tempor consectetur ea commodo incididunt ex officia aute tempor incididunt. Occaecat nulla aute culpa enim excepteur duis magna et exercitation ea adipisicing. Incididunt reprehenderit et consectetur id. Consectetur ea sit exercitation consequat do ipsum eu mollit consectetur exercitation nulla id sit irure.\r\n"
-        },
-        {
-            "id": "461fd18c-36f9-4e0f-9852-677e2b838518",
-            "firstname": "Potts",
-            "lastname": "Sykes",
-            "phone": "847-489-3772",
-            "email": "nitahuff@syntac.com",
-            "description": "Laboris cupidatat nostrud aliqua mollit nulla fugiat aliquip. Tempor magna duis laboris reprehenderit consequat cupidatat sit ullamco consectetur velit. Velit culpa officia Lorem id ea laborum ea labore sit tempor ullamco ullamco. Ullamco tempor aute est duis consectetur pariatur eu id cupidatat nostrud incididunt ut qui. Cupidatat enim esse nostrud consequat. Do culpa minim fugiat tempor ad exercitation excepteur.\r\n"
-        },
-        {
-            "id": "a50e5947-dc34-4a5c-94d7-aeb427f7f059",
-            "firstname": "Rush",
-            "lastname": "Holcomb",
-            "phone": "914-426-2437",
-            "email": "smallroach@polaria.com",
-            "description": "Excepteur aliquip veniam nulla Lorem ad ullamco magna. Amet deserunt in elit culpa minim dolore aute deserunt culpa occaecat occaecat culpa. Occaecat dolore occaecat exercitation excepteur non officia occaecat reprehenderit ut reprehenderit ea qui. Incididunt culpa ut fugiat qui est tempor sint et fugiat esse ad dolore excepteur nulla. Lorem magna quis amet ea aute cupidatat eu fugiat quis voluptate voluptate proident nostrud.\r\n"
-        },
-        {
-            "id": "4b2cc228-dadd-44e0-a84b-10ac25b069cb",
-            "firstname": "Bass",
-            "lastname": "Nicholson",
-            "phone": "964-492-2959",
-            "email": "cathymiller@frosnex.com",
-            "description": "Id non officia minim consectetur consectetur reprehenderit duis est deserunt qui. Occaecat tempor consequat tempor quis. Pariatur ex adipisicing cillum aliquip dolor anim ex ea officia velit irure. Consectetur id quis aliquip reprehenderit. Consequat commodo velit anim duis cillum proident culpa.\r\n"
-        },
-        {
-            "id": "3fc43dac-30d9-4598-a150-527110bdbe35",
-            "firstname": "Coffey",
-            "lastname": "Roman",
-            "phone": "928-544-2064",
-            "email": "ferngarcia@konnect.com",
-            "description": "Deserunt proident nulla consectetur officia. Proident cupidatat dolore minim id reprehenderit. Anim aliquip pariatur voluptate incididunt.\r\n"
-        },
-        {
-            "id": "2ebb5bba-ec1c-4585-9dfb-102fd7805db8",
-            "firstname": "Benjamin",
-            "lastname": "Deleon",
-            "phone": "884-582-3759",
-            "email": "morenohooper@nimon.com",
-            "description": "Aute et dolor elit magna pariatur aliquip velit incididunt dolor. Velit sunt cillum voluptate est id tempor enim sit. Id duis non qui mollit ullamco laborum fugiat excepteur pariatur. Aute cupidatat voluptate incididunt excepteur. Excepteur cupidatat labore nulla sint voluptate Lorem Lorem aliqua voluptate culpa occaecat. Minim eu aute veniam occaecat Lorem adipisicing Lorem voluptate veniam Lorem quis cupidatat.\r\n"
+            "id": "53726be3-2e91-41da-a3aa-845e0089be67",
+            "firstname": "Maryanne",
+            "lastname": "Erickson",
+            "phone": "(814) 451-2270",
+            "email": "maryanneerickson@twiggery.com",
+            "description": "Commodo ea non reprehenderit voluptate sunt mollit dolore labore ex eu mollit cupidatat dolor cupidatat. Occaecat ullamco magna sint non est elit amet proident dolore reprehenderit.",
+            "prefix": "Mr.",
+            "middle": "",
+            "date_of_birth": "Thu Dec 13 1979 00:02:58 GMT-0500 (EST)",
+            "city": "Ogema",
+            "zip": "",
+            "secondary_phone": "",
+            "address1": "Stryker Street",
+            "address2": "",
+            "state": "Mississippi"
         }
     ];
     var events              = [

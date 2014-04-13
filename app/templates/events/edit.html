@@ -1,12 +1,17 @@
-<div class="modal-header">Add Event</div>
+<div class="modal-header">Edit Event</div>
 <div class="modal-body">
     <form class="form-group" name="eventForm">
-        <label>Event Name</label><input type="text" ng-model="event.name" class="form-control" required="required">
+        <label>Matter</label><input type="text" ng-model="event.name" class="form-control" required="required">
         <label>Date</label>
-        <input class="form-control input-sm" type="text" datepicker-popup="{{format}}"
-               data-ng-model="event.date"
-               is-open="opened" min="2013-06-22" datepicker-options="dateOptions"
-               close-text="Close" class="form-control" required="required">
+        <p class="input-group">
+            <input class="form-control" type="text" datepicker-popup="{{format}}"
+                   ng-model="event.date"
+                   is-open="matter_viewing.opened" min="2013-06-22" datepicker-options="dateOptions"
+                   close-text="Close" class="form-control" required="required">
+                <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="openPicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+        </p>
         <label>Time:</label>
         <input type="text" ng-model="event.time" class="form-control input-sm" required="required" placeholder="04:30:00">
         <label>Location</label>

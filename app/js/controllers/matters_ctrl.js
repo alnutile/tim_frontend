@@ -104,7 +104,8 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             }
         };
 
-        //Triggerr modal interaction and controllers
+        //Trigger modal interaction and controllers
+        $scope.matter_viewing.opened = false;
         $scope.addEvent = function() {
             var modalInstance  = $modal.open({
                 templateUrl: 'templates/events/new.html',
@@ -119,7 +120,6 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                     matter_viewing: function() {
                         return $scope.matter_viewing;
                     }
-
                 }
             });
             modalInstance.result.then(function(event){
@@ -156,6 +156,9 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                 resolve: {
                     roles: function() {
                         return $scope.roles;
+                    },
+                    people: function() {
+                        return $scope.people;
                     }
                 }
             });
@@ -212,10 +215,10 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             $scope.dt = null;
         };
 
-        $scope.open = function($event) {
+        $scope.openPicker = function($event) {
             $event.preventDefault();
             $event.stopPropagation();
-            $scope.opened = true;
+            $scope.matter_viewing.opened = true;
         };
 
         $scope.dateOptions = {
@@ -249,7 +252,6 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         $scope.original = {};
         angular.copy(event, $scope.original);
 
-
         $scope.today = function() {
             $scope.dt = new Date();
         };
@@ -258,10 +260,10 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             $scope.dt = null;
         };
 
-        $scope.open = function($event) {
+        $scope.openPicker = function($event) {
             $event.preventDefault();
             $event.stopPropagation();
-            $scope.opened = true;
+            $scope.matter_viewing.opened = true;
         };
 
         $scope.dateOptions = {
@@ -297,10 +299,15 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                 Noty("<i class='glyphicon glyphicon-user'></i> Person could not be updated", 'error');
             });
         };
-    }]).controller('ModalPersonAdd', ['$scope', '$modalInstance', 'Noty', 'PeopleService', 'roles', function($scope, $modalInstance, Noty, PeopleService, roles){
+    }]).controller('ModalPersonAdd', ['$scope', '$modalInstance', 'Noty', 'PeopleService', 'roles', 'people', function($scope, $modalInstance, Noty, PeopleService, roles, people){
         $scope.roles = roles;
+        $scope.people = people;
         $scope.cancelAddPerson = function () {
             $modalInstance.dismiss($scope.original);
+        };
+
+        $scope.choosePerson = function(existing_person) {
+            $modalInstance.close(existing_person.person);
         };
 
         $scope.addPerson = function(add_person) {
