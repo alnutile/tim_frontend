@@ -201,19 +201,14 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
 
     }]).controller('ModalEventAdd', ['$scope', '$modalInstance', 'matters_fields', 'locations', 'EventsService', 'Noty', 'matter_viewing', function($scope, $modalInstance, matters_fields, locations, EventsService, Noty, matter_viewing){
         //Start Calendar Widget
-        $scope.newEvent = {};
+        $scope.form = { name: "event_form", url: "templates/events/form.html" }
+        $scope.button_label = "Add Event";
+        $scope.event = {};
         $scope.matter_viewing = matter_viewing;
+        $scope.event.name = $scope.matter_viewing.name
         $scope.format = 'MM/dd/yyyy';
         $scope.locations = locations;
         $scope.matters_fields = matters_fields;
-
-        $scope.today = function() {
-            $scope.dt = new Date();
-        };
-
-        $scope.clear = function () {
-            $scope.dt = null;
-        };
 
         $scope.openPicker = function($event) {
             $event.preventDefault();
@@ -226,12 +221,12 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             'starting-day': 1
         };
         //End Calendar
-        $scope.submitEvent = function() {
-            var eventCreate = new EventsService($scope.newEvent);
+        $scope.updateEvent = function() {
+            var eventCreate = new EventsService($scope.event);
             //@TODO might be the first fuction is pass/fail and I need to look at the status messsage
             var response = eventCreate.$save(function(data){
                 Noty("<i class='glyphicon glyphicon-user'></i> Event Added", 'warning');
-                $scope.matter_viewing.events.push($scope.newEvent);
+                $scope.matter_viewing.events.push($scope.event);
                 $scope.newEvent = null;
                 $modalInstance.close();
             }, function(data){
@@ -243,6 +238,8 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         };
     }]).controller('ModalEventUpdate', ['$scope', '$modalInstance', 'matters_fields', 'locations', 'EventsService', 'Noty', 'matter_viewing', 'event', function($scope, $modalInstance, matters_fields, locations, EventsService, Noty, matter_viewing, event){
         //Start Calendar Widget
+        $scope.form = { name: "event_form", url: "templates/events/form.html" }
+        $scope.button_label = "Update Event";
         $scope.newEvent = {};
         $scope.matter_viewing = matter_viewing;
         $scope.format = 'MM/dd/yyyy';
@@ -251,14 +248,6 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         $scope.event = event;
         $scope.original = {};
         angular.copy(event, $scope.original);
-
-        $scope.today = function() {
-            $scope.dt = new Date();
-        };
-
-        $scope.clear = function () {
-            $scope.dt = null;
-        };
 
         $scope.openPicker = function($event) {
             $event.preventDefault();
@@ -285,14 +274,31 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             });
         };
     }]).controller('ModalPersonUpdate', ['$scope', '$modalInstance', 'Noty', 'edit_person', 'PeopleService', function($scope, $modalInstance, Noty, edit_person, PeopleService){
-        $scope.edit_person = edit_person;
+        $scope.person = edit_person;
+
+        $scope.person_form = { name: "person_form", url: "templates/people/form.html" }
+        $scope.button_label = "Update Person";
         $scope.original = angular.copy(edit_person);
-        $scope.cancelEditPerson = function () {
+        $scope.cancelAddPerson = function () {
             $modalInstance.dismiss($scope.original);
         };
 
-        $scope.updatePerson = function() {
-            var response = PeopleService.update({pid: $scope.edit_person.id}, $scope.edit_person, function(data){
+        $scope.person.opened = false;
+        $scope.format = 'MM/dd/yyyy';
+
+        $scope.openPicker = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.person.opened = true;
+        };
+
+        $scope.dateOptions = {
+            'year-format': "'yyyy'",
+            'starting-day': 1
+        };
+
+        $scope.addPerson = function() {
+            var response = PeopleService.update({pid: $scope.person.id}, $scope.person, function(data){
                 Noty("<i class='glyphicon glyphicon-user'></i> Person Updated", 'warning');
                 $modalInstance.close();
             }, function(data){
@@ -300,10 +306,27 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             });
         };
     }]).controller('ModalPersonAdd', ['$scope', '$modalInstance', 'Noty', 'PeopleService', 'roles', 'people', function($scope, $modalInstance, Noty, PeopleService, roles, people){
+        $scope.person_form = { name: "person_form", url: "templates/people/form.html" }
+        $scope.button_label = "Add Person";
         $scope.roles = roles;
         $scope.people = people;
+        $scope.person = {};
         $scope.cancelAddPerson = function () {
             $modalInstance.dismiss($scope.original);
+        };
+
+        $scope.person.opened = false;
+        $scope.format = 'MM/dd/yyyy';
+
+        $scope.openPicker = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.person.opened = true;
+        };
+
+        $scope.dateOptions = {
+            'year-format': "'yyyy'",
+            'starting-day': 1
         };
 
         $scope.choosePerson = function(existing_person) {
@@ -314,6 +337,7 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             $scope.add_person = add_person;
             var response = PeopleService.save({}, $scope.add_person, function(data){
                 Noty("<i class='glyphicon glyphicon-user'></i> Person Added", 'warning');
+                $scope.add_person.role = 1; //Witness
                 $scope.add_person.id = data.data;
                 $modalInstance.close($scope.add_person);
             }, function(data){

@@ -1,0 +1,57 @@
+<form name="addPersonForm" ng-submit="addPerson(person)">
+    <div class="form-group">
+        <label>First Name</label>
+        <input class="form-control" type="text" data-ng-model="person.firstname" required="required">
+    </div>
+    <div class="form-group">
+        <label>Last Name</label>
+        <input class="form-control"  type="text" data-ng-model="person.lastname" required="required">
+    </div>
+    <div class="form-group">
+        <label>Phone</label>
+        <input class="form-control"  type="text" data-ng-model="person.phone">
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input class="form-control"  type="text" data-ng-model="person.email" required="required">
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <input class="form-control"  type="text" data-ng-model="person.description">
+    </div>
+    <div class="form-group">
+        <label>Address</label>
+        <input class="form-control"  type="text" data-ng-model="person.address1">
+    </div>            <div class="form-group">
+    <label>Address 2</label>
+    <input class="form-control"  type="text" data-ng-model="person.address2">
+</div>
+    <div class="form-group">
+        <label>City</label>
+        <input class="form-control"  type="text" data-ng-model="person.city">
+    </div>
+    <div class="form-group">
+        <label>State</label>
+        <input class="form-control"  type="text" data-ng-model="person.state">
+    </div>
+
+    <div class="form-group">
+        <label>Zip</label>
+        <input class="form-control"  type="text" data-ng-model="person.zip">
+    </div>
+    <div class="form-group">
+        <label>Date of Birth</label>
+        <p class="input-group">
+            <input class="form-control" type="text" datepicker-popup="{{format}}"
+                   ng-model="person.date_of_birth"
+                   is-open="person.opened" min="1930-01-00" datepicker-options="dateOptions"
+                   close-text="Close" class="form-control" required="required">
+                <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="openPicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+        </p>
+    </div>
+
+    <input type="submit" class="btn btn-success"  value="{{button_label}}">
+    <button type="button" class="btn btn-danger" ng-click="cancelAddPerson()">Cancel</button>
+</form>
