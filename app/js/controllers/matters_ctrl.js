@@ -70,6 +70,8 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         $scope.active_person_is_active = 1; //1 to disable the button
 
         $scope.nav = { name: "nav", url: "templates/shared/nav.html" }
+        $scope.calendar = { name: "calendar", url: "templates/events/_index.html" }
+        $scope.witness = { name: "witness", url: "templates/people/_index.html" }
 
         $scope.action = "Matters"
 

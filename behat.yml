@@ -8,7 +8,8 @@ default:
     Behat\MinkExtension\Extension:
       default_session: selenium2
       goutte: null
-      selenium2: null
+      selenium2:
+        wd_host: "http://localhost:8643/wd/hub"
       base_url: 'http://localhost:8000/app/index.html#'
       browser_name: safari
 

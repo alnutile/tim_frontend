@@ -1,0 +1,25 @@
+<form class="form-group" name="eventForm">
+    <label>Matter</label><input type="text" ng-model="event.name" class="form-control" required="required">
+    <label>Date</label>
+    <p class="input-group">
+        <input class="form-control" type="text" datepicker-popup="{{format}}"
+               ng-model="event.date"
+               is-open="matter_viewing.opened" min="2013-06-22" datepicker-options="dateOptions"
+               close-text="Close" class="form-control" required="required">
+                <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="openPicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+    </p>
+    <label>Time:</label>
+    <input type="text" ng-model="event.time" class="form-control input-sm" required="required" placeholder="04:30:00">
+    <label>Location</label>
+    <select ng-model="event.location_id" ng-options="l.id as l.name for l in locations" class="form-control">
+    </select>
+    <label>Type</label>
+    <select ng-model="event.event_type" ng-options="e.key as e.label for e in matters_fields.event_types" class="form-control"></select>
+    <label>Notes</label><input type="text" ng-model="event.description" class="form-control">
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" ng-click="updateEvent(event)">{{button_label}}</button>
+        <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    </div>
+</form>
