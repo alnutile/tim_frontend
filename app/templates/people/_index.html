@@ -5,6 +5,7 @@
         <th>Phone</th>
         <th>Email</th>
         <th>Action</th>
+        <th>Remove</th>
     </tr>
     </thead>
     <tbody>
@@ -20,6 +21,9 @@
         </td>
         <td>
             <i class="glyphicon glyphicon-pencil person_{{$index}}" ng-click="updatePerson(witness)"></i>
+        </td>
+        <td>
+            <i class="glyphicon glyphicon-remove person_{{$index}}" ng-click="removePerson(witness, $index)"></i>
         </td>
     </tr>
     </tbody>

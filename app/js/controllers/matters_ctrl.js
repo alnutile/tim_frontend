@@ -147,8 +147,21 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             }, function(original){
                 Noty("<i class='glyphicon glyphicon-user'></i> Your update and changes where canceled", 'warning');
             });
-
         };
+
+        $scope.removePerson = function(person, index) {
+            PeopleService.postMatter(
+                {
+                    mid: $scope.matter_viewing.id
+                }, person
+            , function(data){
+                    Noty(data.message, 'success');
+                    $scope.matter_viewing.people.witness.splice(index, 1);
+                },
+            function(data){
+                Noty(data.message, 'error');
+            });
+        }
 
         $scope.addPerson = function() {
             $scope.active_person = {};
