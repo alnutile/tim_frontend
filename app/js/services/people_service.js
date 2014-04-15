@@ -10,6 +10,7 @@ people_service.factory('PeopleService', ['$resource',
                 {
                     query: {method:'GET', params:{}, isArray:true},
                     update: {method: 'PUT'},
+                    deleteEvent: {method: 'DELETE'},
                     putMatter:{
                         method: 'PUT',
                         params: {

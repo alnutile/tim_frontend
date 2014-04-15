@@ -95,7 +95,8 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             });
         }
 
-        //Add Event
+        /** EVENT RELATED **/
+
         $scope.setEditEventMode = function(id) {
             $scope.edit_event_mode[id] = 1;
             if(id != 0) {
@@ -128,6 +129,21 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                 Noty("<i class='glyphicon glyphicon-user'></i> You will see the  event below", 'warning');
             });
         };
+
+        $scope.removeEvent = function(event, index) {
+            EventsService.deleteEvent(
+                {
+                   eid: event.eid
+                }, event
+                , function(data){
+                    Noty(data.message, 'success');
+                    $scope.matter_viewing.events.splice(index, 1);
+                },
+                function(data){
+                    Noty(data.message, 'error');
+                });
+        }
+        /** END EVENT **/
 
         /** PERSON **/
         $scope.updatePerson = function(person) {
@@ -240,7 +256,7 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         //End Calendar
         $scope.updateEvent = function() {
             var eventCreate = new EventsService($scope.event);
-            //@TODO might be the first fuction is pass/fail and I need to look at the status messsage
+            //@TODO might be the first fuction is pass/fail and I need to look at the status message
             var response = eventCreate.$save(function(data){
                 Noty("<i class='glyphicon glyphicon-user'></i> Event Added", 'warning');
                 $scope.matter_viewing.events.push($scope.event);
@@ -282,7 +298,7 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         };
 
         $scope.updateEvent = function() {
-            //@TODO might be the first fuction is pass/fail and I need to look at the status messsage
+            //@TODO might be the first fuction is pass/fail and I need to look at the status message
             var response = EventsService.update({eid: $scope.event.event_id}, $scope.event, function(data){
                 Noty("<i class='glyphicon glyphicon-user'></i> Event Updated", 'warning');
                 $modalInstance.close();

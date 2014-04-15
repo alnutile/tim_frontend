@@ -6,6 +6,7 @@
         <th>Location</th>
         <th>Type</th>
         <th>Action</th>
+        <th>Remove</th>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +25,9 @@
         </td>
         <td>
             <i class="glyphicon glyphicon-pencil" ng-click="updateEvent(event)"></i>
+        </td>
+        <td>
+            <i class="glyphicon glyphicon-remove" if="remove-event-$index" ng-click="removeEvent(event, $index)"></i>
         </td>
     </tr>
     </tbody>

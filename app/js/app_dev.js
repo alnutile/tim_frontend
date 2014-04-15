@@ -3633,13 +3633,17 @@ app.run(function($httpBackend, $location, $rootScope) {
     $httpBackend.whenPUT(/\/api\/v1\/people\/[A-Za-z0-9_-]*/).respond(person_saved);
     $httpBackend.whenPUT('/api/v1/people/8c3ab957-1cab-441d-8f57-3a4d9b959a8d').respond(person_saved);
     $httpBackend.whenPOST('/api/v1/people/8c3ab957-1cab-441d-8f57-3a4d9b959a8d/matter/3bc53bd9-e5a0-49ea-9e28-f4b22efe646d').respond(
-        200, { status: 'success', messsage: "Person Removed from Matter", data: null }
+        200, { status: 'success', message: "Person Removed from Matter", data: null }
     );
     $httpBackend.whenPOST('/api/v1/people/312768fb-616c-4a9d-bb6f-b94e459f3ce6/matter/3bc53bd9-e5a0-49ea-9e28-f4b22efe646d').respond(
-        401, { status: 'error', messsage: "Person could not be removed from Matter", data: null }
+        401, { status: 'error', message: "Person could not be removed from Matter", data: null }
     );
 
     $httpBackend.whenGET('/api/v1/matters').respond(matters);
+    $httpBackend.whenDELETE('/api/v1/events').respond(
+        200, { status: 'success', message: "Event Deleted", data: null }
+    );
+
     $httpBackend.whenGET('/api/v1/matters_fields').respond(matters_fields);
     $httpBackend.whenGET(/^templates\//).passThrough();
 
