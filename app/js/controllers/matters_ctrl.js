@@ -129,7 +129,7 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             });
         };
 
-        //Trigger modal interaction and controllers
+        /** PERSON **/
         $scope.updatePerson = function(person) {
             $scope.active_person = person;
             $scope.original = angular.copy(person);
@@ -184,6 +184,8 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                 Noty("<i class='glyphicon glyphicon-user'></i> Person add canceled", 'warning');
             });
         }
+
+        /** END PERSON **/
 
         //Trigger modal interaction and controllers
         $scope.updateEvent = function(event) {
