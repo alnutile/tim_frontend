@@ -36,7 +36,7 @@
             witness: [
                 '{{repeat(5, 8)}}', {
                     id: '{{guid()}}',
-                    firstname: '{{firstName(male)}}',
+                    firstname: '{{firstName()}}',
                     lastname: '{{surname()}}',
                     phone: '{{phone()}}',
                     email: '{{email()}}',

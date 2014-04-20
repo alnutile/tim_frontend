@@ -6,11 +6,11 @@
                 <label>Choose a person or add one</label>
                 <div class="form-group">
                     <h4>Type name to search</h4>
-                    <input
+                    <input name="existing_people"
                            type="text"
                            ng-model="existing_person.person"
                            typeahead="p as p.firstname + ' ' + p.lastname for p in people | filter:$viewValue | limitTo:8"
-                           class="form-control">
+                           class="form-control" required="required">
                 </div>
                 <input type="submit" class="btn btn-success" id="submit_existing_person" value="Select">
                 <button type="button" class="btn btn-danger" ng-click="cancelAddPerson()">Cancel</button>
