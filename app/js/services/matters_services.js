@@ -4,6 +4,8 @@ reportsServices.factory('MattersService', ['$resource',
         function($resource){
             return $resource('/api/v1/matters/:mid', {}, {
                 query: {method:'GET', params:{}, isArray:true},
+                update: {method:'PUT', isArray:false},
+                remove: {method:'DELETE'},
                 get:   {method:'GET', params:{mid:'', mid:''}, isArray:true}
             });
         }]).

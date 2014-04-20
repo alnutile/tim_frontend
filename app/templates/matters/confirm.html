@@ -1,0 +1,11 @@
+<div class="modal-header">Confirm Deletion of matter {{ matter_viewing.name }} </div>
+<div class="modal-body">
+    ID: {{ matter_viewing.id }}
+    <br>
+    Name: {{ matter_viewing.name }}
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" ng-click="deleteMatter()">Delete</button>
+        <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

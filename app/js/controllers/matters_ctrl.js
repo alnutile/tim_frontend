@@ -63,8 +63,22 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
 
         $scope.editModeSave = function() {
             $scope.edit_mode = 0;
-            //@TODO send save back to the server
-            Noty("<i class='glyphicon glyphicon-pencil'></i> The data was saved", 'warning');
+            var submitted_matter = $scope.matter_viewing;
+            console.log($scope.matter_viewing.id);
+            if($scope.matter_viewing.id == undefined) {
+                $scope.matter_viewing.$save(function(data){
+                    $scope.matter_viewing = data.data;
+                    Noty("<i class='glyphicon glyphicon-pencil'></i> Matter Created", 'success');
+                }, function(err){
+                    Noty("<i class='glyphicon glyphicon-pencil'></i> Error Creating the Matter", 'error');
+                });
+            } else {
+                $scope.matter_viewing.$save(function(data){
+                    Noty("<i class='glyphicon glyphicon-pencil'></i> Matter Saved", 'success');
+                }, function(err){
+                    Noty("<i class='glyphicon glyphicon-pencil'></i> Error saving the Matter", 'error');
+                });
+            }
         };
 
         $scope.active_person_is_active = 1; //1 to disable the button
@@ -93,6 +107,69 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                    return;
                }
             });
+        };
+
+        //Matter Interactions
+        $scope.addMatter = function() {
+            $scope.matter_viewing = new MattersService({
+                name: "New Matter"
+            });
+            $scope.editMode();
+        };
+
+        $scope.deleteMatterConfirm = function(event) {
+            var modalInstance  = $modal.open({
+                templateUrl: 'templates/matters/confirm.html',
+                controller: 'MattersDelete',
+                resolve: {
+                    matter_viewing: function() {
+                        return $scope.matter_viewing;
+                    }
+                }
+            });
+            modalInstance.result.then(function(){
+                MattersService.remove({mid:$scope.matter_viewing.id}, function(data){
+                    angular.forEach($scope.matters, function(v,i){
+                        if(v.id == $scope.matter_viewing.id) {
+                            $scope.matters.splice(i, 1);
+                            $scope.matter_viewing = $scope.matters[0];
+                        }
+                    });
+                    Noty("<i class='glyphicon glyphicon-user'></i> Matter Deleted", 'success');
+                }, function(err){
+                    Noty("<i class='glyphicon glyphicon-user'></i> Problem deleting Matter", 'error');
+                });
+            }, function(){
+
+            });
+        };
+
+        $scope.closeMatter = function() {
+            $scope.matter_viewing.active = ($scope.matter_viewing.active == true) ? false : true;
+            MattersService.update({mid:$scope.matter_viewing.id}, $scope.matter_viewing,
+                function(data) {
+                    var state = ($scope.matter_viewing.active === true) ? 'Open' : 'Closed';
+                    Noty("<i class='glyphicon glyphicon-user'></i>Matter Is now " + state, 'success');
+                }, function(err) {
+                    Noty("<i class='glyphicon glyphicon-user'></i> State could not be changed due to an error", 'error');
+                }
+            )
+        };
+
+        $scope.$watch('matter_viewing.active', function(newValue, oldValue) {
+                if(newValue != oldValue && newValue != undefined) {
+                    $scope.setActiveClass();
+                }
+        });
+
+        $scope.setActiveClass = function() {
+            if($scope.matter_viewing.active === true || $scope.matter_viewing.active == 'Open') {
+                $scope.openCloseClass = "glyphicon glyphicon-remove-circle";
+                $scope.openCloseClassText = "close";
+            } else {
+                $scope.openCloseClass = "glyphicon glyphicon-ok-circle";
+                $scope.openCloseClassText = "open";
+            }
         }
 
         /** EVENT RELATED **/
@@ -232,7 +309,8 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
             });
         };
 
-    }]).controller('ModalEventAdd', ['$scope', '$modalInstance', 'matters_fields', 'locations', 'EventsService', 'Noty', 'matter_viewing', function($scope, $modalInstance, matters_fields, locations, EventsService, Noty, matter_viewing){
+    }]).controller('ModalEventAdd', ['$scope', '$modalInstance', 'matters_fields', 'locations', 'EventsService', 'Noty', 'matter_viewing',
+        function($scope, $modalInstance, matters_fields, locations, EventsService, Noty, matter_viewing){
         //Start Calendar Widget
         $scope.form = { name: "event_form", url: "templates/events/form.html" }
         $scope.button_label = "Add Event";
@@ -269,7 +347,8 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
-    }]).controller('ModalEventUpdate', ['$scope', '$modalInstance', 'matters_fields', 'locations', 'EventsService', 'Noty', 'matter_viewing', 'event', function($scope, $modalInstance, matters_fields, locations, EventsService, Noty, matter_viewing, event){
+    }]).controller('ModalEventUpdate', ['$scope', '$modalInstance', 'matters_fields', 'locations', 'EventsService', 'Noty', 'matter_viewing', 'event',
+        function($scope, $modalInstance, matters_fields, locations, EventsService, Noty, matter_viewing, event){
         //Start Calendar Widget
         $scope.form = { name: "event_form", url: "templates/events/form.html" }
         $scope.button_label = "Update Event";
@@ -377,4 +456,16 @@ sitesController.controller('MattersCTRL', ['$scope', '$http', '$location', '$rou
                 Noty("<i class='glyphicon glyphicon-user'></i> Person could not be added. Press ESC to close this window", 'error');
             });
         };
-    }]);
+    }]).controller('MattersDelete', ['$scope', '$modalInstance', 'Noty', 'matter_viewing', 'MattersService',
+        function($scope, $modalInstance, Noty, matter_viewing, MattersService){
+
+            $scope.matter_viewing = matter_viewing;
+
+            $scope.deleteMatter = function() {
+                $modalInstance.close($scope.add_person);
+            };
+            $scope.cancel = function () {
+                Noty("<i class='glyphicon glyphicon-user'></i> Canceled deleting Matter", 'warning');
+                $modalInstance.dismiss('cancel');
+            };
+        }]);

@@ -28,7 +28,7 @@ saucelabs:
       base_url: 'http://turbotim.stagingarea.us/#'
       selenium2:
         browser: chrome
-        wd_host: 'alnutile:3e3289cc-b519-43c3-8393-d61438bb20f2@ondemand.saucelabs.com/wd/hub'
+        wd_host: 'alfrednutile:3e86014d-25de-4dfc-a67e-ae53c07cc35c@ondemand.saucelabs.com/wd/hub'
         capabilities:
           platform: 'Windows 2012'
           browser: chrome

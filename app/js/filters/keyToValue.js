@@ -13,7 +13,7 @@ keyToValue.filter("caseType", ['$rootScope', function($rootScope) {
         };
 }]).filter("people", ['$rootScope', function($rootScope) {
         return function(value, scope) {
-            var output = value;
+            var output = '';
             if(!angular.isUndefined(value)) {
                 angular.forEach(scope.people, function(v,i){
                     if(v.id == value) {
@@ -21,7 +21,7 @@ keyToValue.filter("caseType", ['$rootScope', function($rootScope) {
                     }
                 })
             }
-            return output;
+            return (output == '') ? "John Smith (mocked data)" : output;
         };
 }]).filter("location", ['$rootScope', function($rootScope) {
         return function(value, scope) {
